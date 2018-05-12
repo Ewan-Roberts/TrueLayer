@@ -4,7 +4,9 @@ This is the response to the TrueLayer development challenge
 
 ## How to Run
 
-### To run the server:
+Firstly, install node here: https://nodejs.org/en/download/
+
+### To run the server open terminal, go to the root folder and run:
 ```
 npm install
 node server.js hackernews --posts n
