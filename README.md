@@ -29,8 +29,8 @@ mocha
 
 ### Testing: 
 
-	**Library** - Rewire  : This lets you dig into private functions\
-	**Reason**  - Rewire  : A clean library for exporting private functions, tests should not touch/impact code
+   **Library** - Rewire  : This lets you dig into private functions\
+   **Reason**  - Rewire  : A clean library for exporting private functions, tests should not touch/impact code
 
 **Library** - Chai-json-schema  : Speeds up JSON schema validation\
 **Reason**  - Chai-json-schema  : Speed of development
