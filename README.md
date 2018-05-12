@@ -4,11 +4,20 @@ This is the response to the TrueLayer development challenge
 
 # How to Run
 
+```
+npm install
+node server.js
+```
+### For Tests:
+```
+npm test
+mocha
+```
 
 
 ## Libraries used and why 
 
-### I tried to be as light as possible and used one library:
+### Development:
 
 **Library** - Request - An abstraction of http.get from vanilla node\
 **Reason**  - Request Makes api requests a little cleaner
