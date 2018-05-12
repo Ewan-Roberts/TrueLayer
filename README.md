@@ -6,7 +6,7 @@ This is the response to the TrueLayer development challenge
 
 ```
 npm install
-node server.js
+node server.js hackernews --posts n
 ```
 ### For Tests:
 ```
