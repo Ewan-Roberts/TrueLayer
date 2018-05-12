@@ -24,19 +24,19 @@ mocha
 
 ### Development:
 
-**Library** - Request : An abstraction of http.get from vanilla node\
-**Reason**  - Request : makes api requests a little cleaner
+⋅⋅⋅**Library** - Request : An abstraction of http.get from vanilla node\
+⋅⋅⋅**Reason**  - Request : makes api requests a little cleaner
 
 ### Testing: 
 
-**Library** - Rewire  : This lets you dig into private functions\
-**Reason**  - Rewire  : A clean library for exporting private functions, tests should not touch/impact code
+⋅⋅⋅**Library** - Rewire  : This lets you dig into private functions\
+⋅⋅⋅**Reason**  - Rewire  : A clean library for exporting private functions, tests should not touch/impact code
 
-**Library** - chai-json-schema  : Speeds up JSON schema validation\
-**Reason**  - Rewire  : Speed of development
+⋅⋅⋅**Library** - chai-json-schema  : Speeds up JSON schema validation\
+⋅⋅⋅**Reason**  - Rewire  : Speed of development
 
-**Library** - Chai    : Extremely useful testing framework\
-**Reason**  - Chai    : To be able to test within an established framework/syntax
+⋅⋅⋅**Library** - Chai    : Extremely useful testing framework\
+⋅⋅⋅**Reason**  - Chai    : To be able to test within an established framework/syntax
 
 
 ## Notes to Consider:
