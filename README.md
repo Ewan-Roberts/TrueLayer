@@ -29,7 +29,7 @@ mocha
 
 * **Rewire**            : A clean library for exporting private functions, tests should not touch/impact code
 * **Chai-json-schema**  : Speeds up the validation of JSON schemas
-* **Chai**              : Extremely useful testing framework to be able to test within an established framework/syntax
+* **Chai/Mocha**        : Extremely useful testing framework to be able to test within an established framework/syntax
 * **Nyc**               : Library for checking code coverage
 
 
