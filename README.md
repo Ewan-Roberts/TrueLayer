@@ -24,24 +24,24 @@ mocha
 
 ### Development:
 
-**Library** - Request - An abstraction of http.get from vanilla node\
-**Reason**  - Request Makes api requests a little cleaner
+**Library** - Request : An abstraction of http.get from vanilla node\
+**Reason**  - Request : makes api requests a little cleaner
 
 ### Testing: 
 
 **Library** - Rewire  : This lets you dig into private functions\
-**Reason**  - A clean library for exporting private functions, tests should not touch/impact code
+**Reason**  - Rewire  : A clean library for exporting private functions, tests should not touch/impact code
 
 **Library** - chai-json-schema  : Speeds up JSON schema validation\
-**Reason**  - Speed of development
+**Reason**  - Rewire  : Speed of development
 
-**Library** - chai : Extremely useful testing framework\
-**Reason**  - To be able to test within an established framework/syntax
+**Library** - Chai    : Extremely useful testing framework\
+**Reason**  - Chai    : To be able to test within an established framework/syntax
 
 
 ## Notes to Consider:
 
-- The code strongly favoured readability over consise code, especially in the tests
+- The code strongly favoured readability over concise code, especially in the tests
 - I should have stubbed the server calls
 - I really tried to keep it simple, minimal fancy things like ternary operators etc 
 
