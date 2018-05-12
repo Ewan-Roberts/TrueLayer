@@ -1,0 +1,20 @@
+{
+  "name": "truelayer",
+  "version": "1.0.0",
+  "description": "dev-challenge",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "ER",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^4.1.2",
+    "cheerio": "^1.0.0-rc.2",
+    "random-useragent": "^0.3.1",
+    "request": "^2.85.0",
+    "rewire": "^4.0.1",
+    "socks5-http-client": "^1.0.3"
+  }
+}
