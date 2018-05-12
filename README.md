@@ -4,6 +4,7 @@ This is the response to the TrueLayer development challenge
 
 # How to Run
 
+### To run the server:
 ```
 npm install
 node server.js hackernews --posts n
