@@ -2,7 +2,7 @@
 
 This is the response to the TrueLayer development challenge
 
-# How to Run
+## How to Run
 
 ### To run the server:
 ```
