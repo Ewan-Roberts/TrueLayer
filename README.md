@@ -11,18 +11,18 @@ This is the response to the TrueLayer development challenge
 ##I tried to be as light as possible and used one library:
 
 **Library** - Request - An abstraction of http.get from vanilla node\
-**Reason**  - Request Makes api requests a little cleaner\
+**Reason**  - Request Makes api requests a little cleaner
 
 ##Testing: 
 
 **Library** - Rewire  : This lets you dig into private functions\
-**Reason**  - A clean library for exporting private functions, tests should not touch/impact code\
+**Reason**  - A clean library for exporting private functions, tests should not touch/impact code
 
 **Library** - chai-json-schema  : Speeds up JSON schema validation\
-**Reason**  - Speed of development\
+**Reason**  - Speed of development
 
 **Library** - chai : Extremely useful testing framework\
-**Reason**  - To be able to test within an established framework/syntax\
+**Reason**  - To be able to test within an established framework/syntax
 
 
 how to run it (don't assume anything already installed)
