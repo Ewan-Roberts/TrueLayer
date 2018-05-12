@@ -6,14 +6,14 @@ This is the response to the TrueLayer development challenge
 
 
 
-# Libraries used and why 
+## Libraries used and why 
 
-##I tried to be as light as possible and used one library:
+### I tried to be as light as possible and used one library:
 
 **Library** - Request - An abstraction of http.get from vanilla node\
 **Reason**  - Request Makes api requests a little cleaner
 
-##Testing: 
+### Testing: 
 
 **Library** - Rewire  : This lets you dig into private functions\
 **Reason**  - A clean library for exporting private functions, tests should not touch/impact code
