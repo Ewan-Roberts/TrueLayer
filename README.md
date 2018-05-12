@@ -11,7 +11,8 @@ Firstly, install node here: https://nodejs.org/en/download/
 npm install
 node server.js hackernews --posts n
 ```
-### For Tests:
+### This project has 94.12% code coverage
+### To run the tests open terminal, go to root folder and run:  
 ```
 npm test
 mocha
