@@ -35,13 +35,14 @@ mocha
 **Reason**  - To be able to test within an established framework/syntax
 
 
-how to run it (don't assume anything already installed)
-what libraries you used and why
+## Notes to Consider:
 
+- The code strongly favoured readability over consise code, especially in the tests
+- I should have stubbed the server calls
+- I really tried to keep it simple, minimal fancy things like ternary operators etc 
 
-
-
-
+**________________________________________________________________________________________________________**
+**________________________________________________________________________________________________________**
 
 TrueLayer Dev Challenge below taken from : https://gist.github.com/lucamartinetti/01b2d3b05cd19a42e2d494202a951175
 
