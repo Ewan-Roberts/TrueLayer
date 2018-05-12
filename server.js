@@ -1,279 +1,126 @@
+"use strict";
 
+//Makes api requests a little cleaner
 const request = require("request");
 
+//This take the third arguments in terminal from the input "$ node server.js hackernews --posts n"
+const terminal_inputs = process.argv.slice(2);
 
-let schema = [
-    {
-        "title": "Web Scraping in 2016",
-        "uri": "https://franciskim.co/2016/08/24/dont-need-no-stinking-api-web-scraping-2016-beyond/",
-        "author": "franciskim",
-        "points": 133,
-        "comments": 80,
-        "rank": 1
-    }
-]
+//Extracts the third argument, if it doesnt exists make it 10
+const stories_to_return = terminal_inputs[2] || 10
 
-
-
+//Makes sure the string isn't empty, too long or is not a string
 const validate_description = str =>{
+    
+    if(typeof str !== "string") return "Error - for validate_description(): "+str+" is not a string"
 
-    if(str.length > 256) return "ERROR: string too long"
+    if(str.length > 256) return "Error - for validate_description(): string is too long"
 
-    if(str === " ") return "ERROR: empty response"
+    if(str === " ") return "Error - for validate_description(): is an empty string"
 
     return str;
 
 }
 
+//Regex checks the URL is valid and if its a string
 const validate_uri = str =>{
 
+    if(typeof str !== "string") return "Error - for validate_uri(): "+str+" is not a string";
+
+    //*NOTE* This is not my regex statement, I copied this online
     const uri_validation_checker = new RegExp("^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|www\\.){1}([0-9A-Za-z-\\.@:%_\+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?");
 
     // If i wanted this to be really good i would also hit the url and look for a 200
-    if(!uri_validation_checker.test(str)) return "NO URL";
+    if(!uri_validation_checker.test(str)) return "Error - for validate_uri(): "+str+" is not a valid URL";
 
     return str;
 
 }
 
+//Validates if the input is an int and returns an error if its less then 0
 const validate_numerals = int =>{
 
-    if(int < 0) throw "negative number?"
+    if(!Number.isInteger(int)) return "Error - for validate_numerals(): "+int+" is not an interger"
 
-    if(!Number.isInteger(int)) return 0
+    if(int < 0) return "Error - for validate_numerals(): "+int+" is less then 0"
 
     return int;
 
 }
 
-const promise_array = [];
+//Makes an API call based on input URL and validates its a URL 
+const get_top_stories = url =>{ 
 
-const get_hackernews_stories = () =>{
+    //This would be better if my validation functions returned bools
+    if(validate_uri(url) !== url) throw new Error("Error - for get_top_stories(): "+url+" is not valid");
 
+    return new Promise((resolve,reject)=>{
 
-    let get_top_stories = new Promise((resolve,reject)=>{
+        request(url, (err,res,html) => {
+            
+            if(err) reject("Error - for get_top_stories(): "+err)
 
-        request("https://hacker-news.firebaseio.com/v0/topstories.json", (err, res,html) => {
+            if(res.statusCode !== 200) reject("Error - for get_top_stories(): status is "+res.status)
 
-            let body_parse = JSON.parse(html)
+            if(!err && res.statusCode == 200){
+                
+                let body_parse = JSON.parse(html)
 
-            resolve(body_parse)
+                resolve(body_parse)
 
+            }
         })
-
-    }).then(id=>{
-
-        for(let i=0;i<20;i++){
-
-            promise_array.push(new Promise((resolve,reject)=>{
-
-                request("https://hacker-news.firebaseio.com/v0/item/"+id[i]+".json", (err,res,html1)=>{
-                        
-                        const body_parse1 = JSON.parse(html1)
-                        console.log(body_parse1)
-                        let schema = {
-                            title:      validate_description(body_parse1.title),
-                            uri:        validate_uri(body_parse1.url),
-                            author:     validate_description(body_parse1.by),
-                            points:     validate_numerals(body_parse1.score),
-                            comments:   validate_numerals(body_parse1.descendants),
-                            rank:       i+1
-                        }
-                        resolve(schema)
-                    })
-                })
-            )
-        }
-
-        Promise.all(promise_array).then(res=>{
-
-            console.log(res)
-
-        })  
-
     })
-
-
 }
 
+//This produces an array of story Promises
+const get_hackernews_stories = url =>{
 
-
-
-
-
-// const   cheerio = require("cheerio"),
-//         request = require("request"),
-//         Agent   = require('socks5-http-client/lib/Agent'),
-//         randomUseragent = require('random-useragent');
+    return new Promise((resolve,reject)=>{
         
+        //Get an array of ids from the service
+        get_top_stories(url).then(story_id=>{
 
-// // process.argv.forEach((val, index, array) =>{
-// //   // console.log(index + ': ' + val);
-// //   console.log(val);
-// // });
+            const promise_array = [];
 
-// var args = process.argv.slice(2);
+            //Number of stories pulled from your terminal input
+            for(let i=0;i<stories_to_return;i++){
 
-// console.log(args)
+                //I push each promise to an array to manage synconioustly later 
+                promise_array.push(new Promise((resolve,reject)=>{
 
-// let schema = [
-//     {
-//         "title": "Web Scraping in 2016",
-//         "uri": "https://franciskim.co/2016/08/24/dont-need-no-stinking-api-web-scraping-2016-beyond/",
-//         "author": "franciskim",
-//         "points": 133,
-//         "comments": 80,
-//         "rank": 1
-//     },
-//     {
-//         "title": "Instapaper is joining Pinterest",
-//         "uri": "http://blog.instapaper.com/post/149374303661",
-//         "author": "ropiku",
-//         "points": 182,
-//         "comments": 99,
-//         "rank": 2
-//     }
-// ]
+                    request("https://hacker-news.firebaseio.com/v0/item/"+story_id[i]+".json", (err,res,html)=>{
+                            
+                            if(err) reject("Error - for get_hackernews_stories(): "+err)
 
+                            const parsed_response = JSON.parse(html)
+                            
+                            resolve({
+                                title:      validate_description(parsed_response.title),
+                                uri:        validate_uri(parsed_response.url),
+                                author:     validate_description(parsed_response.by),
+                                points:     validate_numerals(parsed_response.score),
+                                comments:   validate_numerals(parsed_response.descendants),
+                                rank:       i+1
+                            })
+                        })
+                    })
+                )
+            }
 
-// request("http://news.ycombinator.com/", (err, res ,html) => {
+            resolve(promise_array)
 
-//     if (err) throw err;
+        })
+    })
+}
 
-//     $ = cheerio.load(html)  
+get_hackernews_stories("https://hacker-news.firebaseio.com/v0/topstories.json").then(story_array=>{
 
-//     if (res.statusCode === 200){
-        
-//         // console.log($(".subtext")[0].children[12])
+    //Execute the requests synconoloudtly and log the result
+    Promise.all(story_array).then((test_output)=>{
+                
+        console.log(test_output)
 
+    })  
+})
 
-//         const stories = $(".athing .storylink");
-
-//         let stories_array = [];
-
-//         var regex = new RegExp("^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|www\\.){1}([0-9A-Za-z-\\.@:%_\+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?");
-
-//         for(let i=0;i<args[2];i++){
-
-//             let comments_parsed = 0;
-
-//             if(!$(".subtext")[i].children[11] === undefined){
-
-//                 const comments_string = $(".subtext")[i].children[11].children[0].data
-
-//                 const comments_trimmed = comments_string.split(" ")
-
-//                 comments_parsed = parseInt(comments_trimmed)
-
-//             } 
-
-
-
-//             let schema = {
-//                 title:      stories[i].children[0].data,
-//                 uri:        stories[i].attribs.href,
-//                 author:     $(".subtext .hnuser")[i].children[0].data,
-//                 points:     parseInt($(".athing")[i].attribs.id),
-//                 comments:   comments_parsed,
-//                 rank: (i+1)
-//             }
-
-//             if((schema.title === "" || schema.title.length >=256) || (schema.author === "" || (schema.author.length >=256))){
-//                 throw "error with empty or long"
-//             }
-//             console.log(schema)
-
-//             if((schema.uri).includes("item?")){
-//                 schema.uri = "https://news.ycombinator.com/" +schema.uri
-//             }
-
-//             if(!regex.test(schema.uri)) {
-//                 console.log(stories[i])
-
-//                 throw "issue"
-//             }
-
-//             stories_array.push(schema)
-
-//         }
-
-//         console.log(stories_array)
-
-//     }
-// })
-
-
-
-
-// // request({
-    
-// //     url: 'http://news.ycombinator.com/',
-// //     agentClass: Agent,
-// //     headers: {
-// //         'User-Agent': randomUseragent.getRandom(),
-// //         'Content-Type': 'application/x-www-form-urlencoded'
-// //     },
-// //     agentOptions: {
-// //         socksHost: 'localhost', // Defaults to 'localhost'.
-// //         socksPort: 9050 // Defaults to 1080.
-// //     }
-
-// // }, (err, res, html) => {
-// //     console.log(err)
-// //     console.log(res.statusCode)  
-    
-// // });
-
-
-// // // request("https://news.ycombinator.com/", (error, response, html) => {
-    
-    
-// // //     if(!error){
-        
-// // //         const article_list = $(".gel-layout__item.murrayfield__item .lakeside__body")
-// // //         const link_title = $(article_list).find("h3 a")[0]
-// // //         let article_array = [];
-
-// // //         for(let i=0;i<=article_list.length;i++){
-
-// // //             const link_title = $(article_list[i]).find("h3 a")[0]
-// // //             if(link_title.attribs.href === undefined){continue}
-// // //             const schema = {
-
-// // //                 _id: "",
-// // //                 title: $(link_title).find("span")[0].children[0].data,
-// // //                 link: link_title.attribs.href,
-// // //                 content: "",
-// // //                 date: $(article_list[i]).find("time")[0].attribs["data-timestamp"]
-
-// // //             }
-
-// // //             article_array.push(schema)
-
-// // //         }
-
-// // //         console.log(article_array)        
-
-// // //         // // console.log($(link_title).find("span")[0].children[0].data)
-
-// // //         // const schema = {
-
-// // //         //     _id: "",
-// // //         //     title: $(link_title).find("span")[0].children[0].data,
-// // //         //     link: link_title.attribs.href,
-// // //         //     content: article_list,
-// // //         //     date: $(article_list).find("time")[0].attribs["data-timestamp"]
-
-// // //         // }
-
-// // //         // console.log(schema)
-
-// // //         // if($('.vertical-navbox').length > 0) {$('.vertical-navbox').remove()}
-
-// // //         // if($('#mw-content-text').find('p').first().children().text().indexOf("this message may") > -1) {console.log('No result for what you search for')
-            
-// // //         //     global.event.emit('wikiResult', 'No results')
-// // //         // }
-
-// // //     }
-// // // })

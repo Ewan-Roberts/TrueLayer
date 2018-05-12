@@ -4,17 +4,21 @@
   "description": "dev-challenge",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "nyc mocha",
     "start": "node server.js"
   },
   "author": "ER",
   "license": "ISC",
   "dependencies": {
     "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
+    "chai-json-schema": "^1.5.0",
     "cheerio": "^1.0.0-rc.2",
+    "nyc": "^11.7.3",
     "random-useragent": "^0.3.1",
     "request": "^2.85.0",
     "rewire": "^4.0.1",
+    "sinon": "^5.0.7",
     "socks5-http-client": "^1.0.3"
   }
 }
