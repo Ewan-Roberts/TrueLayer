@@ -88,7 +88,7 @@ const get_hackernews_stories = url =>{
             //Number of stories pulled from your terminal input
             for(let i=0;i<stories_to_return;i++){
 
-                //I push each promise to an array to manage synconioustly later 
+                //I push each promise to an array to manage later 
                 promise_array.push(new Promise((resolve,reject)=>{
 
                     request("https://hacker-news.firebaseio.com/v0/item/"+story_id[i]+".json", (err,res,html)=>{
@@ -118,7 +118,7 @@ const get_hackernews_stories = url =>{
 
 get_hackernews_stories("https://hacker-news.firebaseio.com/v0/topstories.json").then(story_array=>{
 
-    //Execute the requests synconoloudtly and log the result
+    //Execute the requests synchronously and log the result
     Promise.all(story_array).then((test_output)=>{
                 
         console.log(test_output)
