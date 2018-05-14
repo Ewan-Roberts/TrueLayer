@@ -12,7 +12,7 @@ npm install
 node server.js hackernews --posts n
 ```
 
-### To run the tests open terminal, go to root folder and run:  
+### To run the tests open terminal, go to the root folder and run:  
 This project has **94.34%** code coverage
 ```
 npm test
