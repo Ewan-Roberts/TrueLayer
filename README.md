@@ -38,6 +38,7 @@ mocha
 - The code strongly favoured readability over concise code, especially in the tests
 - I should have stubbed the server calls
 - I really tried to keep it simple, minimal fancy things like ternary operators etc 
+- Normally I like to handle errors through an event handler with proper errors but this is small scale enough this would have over complicated it
 
 **________________________________________________________________________________________________________________________**
 **________________________________________________________________________________________________________________________**
