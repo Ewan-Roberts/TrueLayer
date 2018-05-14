@@ -23,13 +23,13 @@ mocha
 
 ### Development:
 
-* **Request**           : An abstraction of http.get from vanilla node to makes api requests a little cleaner
+* **Request**           : An abstraction of http.get etc from vanilla node, makes api requests a little cleaner
 
 ### Testing: 
 
-* **Rewire**            : A clean library for exporting private functions, tests should not touch/impact code
+* **Rewire**            : Library for exporting private functions, tests should not touch/impact code
 * **Chai-json-schema**  : Speeds up the validation of JSON schemas
-* **Chai/Mocha**        : Extremely useful testing framework to be able to test within an established framework/syntax
+* **Chai/Mocha**        : Extremely useful testing framework to unit test within an established framework/syntax
 * **Nyc**               : Library for checking code coverage
 
 
