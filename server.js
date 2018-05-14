@@ -25,11 +25,11 @@ const validate_description = str =>{
 //Regex checks the URL is valid and if its a string
 const validate_uri = str =>{
 
-    if(typeof str !== "string") return "Error - for validate_uri(): "+str+" is not a string";
-
     //*NOTE* This is not my regex statement, I copied this online
     const uri_validation_checker = new RegExp("^(http[s]?:\\/\\/(www\\.)?|ftp:\\/\\/(www\\.)?|www\\.){1}([0-9A-Za-z-\\.@:%_\+~#=]+)+((\\.[a-zA-Z]{2,3})+)(/(.)*)?(\\?(.)*)?");
 
+    if(typeof str !== "string") return "Error - for validate_uri(): "+str+" is not a string";
+    
     // If i wanted this to be really good i would also hit the url and look for a 200
     if(!uri_validation_checker.test(str)) return "Error - for validate_uri(): "+str+" is not a valid URL";
 
@@ -39,6 +39,8 @@ const validate_uri = str =>{
 
 //Validates if the input is an int and returns an error if its less then 0
 const validate_numerals = int =>{
+
+    if(int === undefined) return 0;
 
     if(!Number.isInteger(int)) return "Error - for validate_numerals(): "+int+" is not an interger"
 

@@ -116,13 +116,15 @@ describe('validation_functions', function() {
                     test_2 = -1,
                     test_3 = 0.1,
                     test_4 = -0.1,
-                    test_5 = "im a string"
+                    test_5 = "im a string",
+                    test_6 = undefined
 
             expect(validation(test_1)).to.equal("Error - for validate_numerals(): "+test_1+" is less then 0")
             expect(validation(test_2)).to.equal("Error - for validate_numerals(): "+test_2+" is less then 0")
             expect(validation(test_3)).to.equal("Error - for validate_numerals(): "+test_3+" is not an interger")
             expect(validation(test_4)).to.equal("Error - for validate_numerals(): "+test_4+" is not an interger")
             expect(validation(test_5)).to.equal("Error - for validate_numerals(): "+test_5+" is not an interger")
+            expect(validation(test_6)).to.equal(0)
             done()
 
         });
@@ -141,7 +143,7 @@ xdescribe('input checker', function() {
     })
 })
 
-xdescribe('hacker news api calls', function() {
+describe('hacker news api calls', function() {
     
     const get_top_stories = server.__get__('get_top_stories')
 
